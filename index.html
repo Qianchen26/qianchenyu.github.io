@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qianchen Yu — Research & Projects</title>
+  <meta name="description" content="Qianchen Yu — reinforcement learning–driven resource allocation in complex urban systems; post-disaster housing recovery; PyRebuild simulator." />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0b1321;
+      --muted: #4f5b7a;
+      --primary: #2d6cdf;
+      --primary-weak: color-mix(in srgb, var(--primary), transparent 85%);
+      --card: #f6f8fc;
+      --border: #e6eaf2;
+      --code: #0f172a;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { 
+        --bg: #0b1220; 
+        --fg: #e6ebf5; 
+        --muted: #a8b3cf; 
+        --card: #111a2e; 
+        --border: #24304a; 
+        --code: #e5e7eb;
+        --primary-weak: color-mix(in srgb, var(--primary), transparent 88%);
+      }
+    }
+    html,body{height:100%}
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      text-rendering: optimizeLegibility;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1050px; margin: 0 auto; padding: 24px; }
+    header {
+      position: sticky; top: 0; backdrop-filter: saturate(180%) blur(8px);
+      background: color-mix(in srgb, var(--bg), transparent 25%);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+    .nav { display:flex; gap: 16px; align-items:center; justify-content:space-between; }
+    .brand { display:flex; align-items:center; gap: 12px; font-weight: 700; letter-spacing: .3px; }
+    .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 6px var(--primary-weak); }
+    .links a { padding: 10px 12px; border-radius: 10px; }
+    .links a:hover { background: var(--primary-weak); text-decoration:none; }
+
+    .hero { display:grid; grid-template-columns: 1.2fr 1fr; gap: 28px; padding: 40px 0 10px; align-items:center; }
+    .hero h1 { font-size: clamp(28px, 6vw, 40px); line-height: 1.15; margin: 0 0 10px; }
+    .tag { display:inline-block; padding: 6px 10px; background: var(--card); border: 1px solid var(--border); color: var(--muted); border-radius: 999px; font-size: 14px; }
+    .hero p { margin: 14px 0 0; color: var(--muted); }
+    .hero-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
+
+    .hero-photo {
+      width: 100%; max-width: 220px; border-radius: 14px; border: 1px solid var(--border);
+      display:block; margin: 0 auto 14px; object-fit: cover;
+    }
+
+    h2 { font-size: 22px; margin: 36px 0 10px; }
+    h3 { font-size: 18px; margin: 18px 0 6px; }
+    .grid { display:grid; gap: 14px; }
+    .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    @media (max-width: 900px){ .hero { grid-template-columns: 1fr; } .cols-2,.cols-3{grid-template-columns:1fr;} }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .list { margin: 8px 0 0 0; padding-left: 18px; }
+    .kpi { display:flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
+    .chip { border:1px solid var(--border); background: var(--bg); padding: 6px 10px; border-radius: 999px; }
+
+    .timeline { display:grid; gap: 10px; }
+    .item { padding: 14px; border: 1px dashed var(--border); border-radius: 12px; }
+    .item b{ display:block; }
+
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--code); }
+
+    .foot { margin: 32px 0 16px; border-top: 1px solid var(--border); padding-top: 16px; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background: var(--bg); border-radius: 10px; padding:8px 12px; text-decoration:none; }
+    .btn:hover{ background: var(--card); }
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    .skip { position:absolute; left:-9999px; }
+    .skip:focus { left: 12px; top: 12px; z-index: 20; background: var(--bg); border:2px solid var(--primary); padding:8px 10px; border-radius:8px; }
+
+    @media print { header, .btn, .links { display:none !important; } .wrap{max-width: 900px;} a{text-decoration: none;} }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav" role="navigation" aria-label="Main">
+      <div class="brand"><span aria-hidden="true" class="dot"></span><span>Qianchen Yu</span></div>
+      <nav class="links" aria-label="Sections">
+        <a href="#research">Research</a>
+        <a href="#academics">Academics</a>
+        <a href="#conferences">Conferences</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <img src="assets/profile.jpg" alt="Photo of Qianchen Yu" class="hero-photo" />
+        <span class="tag">Research interests</span>
+        <h1 id="hero-title">Reinforcement learning–driven resource allocation in complex urban systems</h1>
+        <p>
+          Ph.D. candidate, University of Florida — focused on AI for post-disaster housing recovery and simulation design.
+        </p>
+        <div class="kpi" aria-label="highlights">
+          <span class="chip">PyRebuild simulator</span>
+          <span class="chip">RL for construction scheduling</span>
+          <span class="chip">GeoAI & discrete-event simulation</span>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="quick profile">
+        <h3 style="margin-top:6px">Quick profile</h3>
+        <ul class="list">
+          <li><b>Location:</b> Gainesville, Florida</li>
+          <li><b>Email:</b> <a id="emailLink" href="#">your.name@domain.com</a></li>
+          <li><b>Phone:</b> +1 (xxx) xxx-xxxx <span style="color:var(--muted)">(optional)</span></li>
+          <li><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/qianchen-yu-05262424a/" target="_blank" rel="noopener">LinkedIn profile</a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Research, Academics, Conferences, Experience, Skills sections remain unchanged -->
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Let’s connect</h2>
+      <div class="card">
+        <p>I’m eager to collaborate on projects at the intersection of urban resilience, AI, and geospatial intelligence.</p>
+        <p>
+          <a class="btn" href="#" id="mailtoBtn" aria-label="Send email">📧 Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/qianchen-yu-05262424a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</a>
+        </p>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>© <span id="year"></span> Qianchen Yu</span>
+      <span class="muted">Single-file, GitHub Pages-ready · Accessible, responsive, printable</span>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const EMAIL = 'yu.qianchen@ufl.edu';
+    const emailLink = document.getElementById('emailLink');
+    const mailtoBtn = document.getElementById('mailtoBtn');
+    if (EMAIL && EMAIL.includes('@')) {
+      emailLink.textContent = EMAIL;
+      emailLink.href = `mailto:${EMAIL}`;
+      mailtoBtn.href = `mailto:${EMAIL}`;
+    }
+  </script>
+</body>
+</html>
